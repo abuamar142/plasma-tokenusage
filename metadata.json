@@ -1,0 +1,21 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Abu Amar",
+                "Email": "abuamar.albadawi@gmail.com"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "AI coding agent token usage monitor for the system tray. Displays daily token usage, cost breakdown, and 7-day history from ccusage data.",
+        "Icon": "office-chart-bar",
+        "Id": "com.github.abuamar.tokenusage",
+        "License": "GPL-2.0+",
+        "Name": "Token Usage Monitor",
+        "Version": "1.0",
+        "Website": "https://github.com/abuamar142",
+        "EnabledByDefault": true
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+}

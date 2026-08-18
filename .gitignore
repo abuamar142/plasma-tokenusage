@@ -1,0 +1,8 @@
+# KDE Plasma build artifacts
+build/
+*.plasmoid
+
+# Editor
+.vscode/
+*.swp
+*~

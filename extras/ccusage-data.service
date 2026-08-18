@@ -1,0 +1,9 @@
+[Unit]
+Description=Generate token usage data for Plasma widget
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/abuamar/.local/bin/ccusage-wrapper
+StandardOutput=journal
+StandardError=journal
