@@ -70,41 +70,78 @@ Item {
         }
 
         // --- Empty / Error state ---
-        ColumnLayout {
+        Flickable {
             visible: root.hasError || (!root.hasError && root.totalTokens === 0 && root.dailyHistory.length === 0)
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.leftMargin: fullRoot.sideMargin
             Layout.rightMargin: fullRoot.sideMargin
-            Layout.topMargin: Kirigami.Units.gridUnit * 3.0
-            spacing: Kirigami.Units.gridUnit * 0.5
+            Layout.topMargin: Kirigami.Units.gridUnit * 1.5
+            contentHeight: emptyCol.implicitHeight
+            clip: true
 
-            Kirigami.Icon {
-                source: root.hasError ? "dialog-error" : "office-chart-bar"
-                Layout.preferredWidth: Kirigami.Units.gridUnit * 2.5
-                Layout.preferredHeight: Kirigami.Units.gridUnit * 2.5
-                Layout.alignment: Qt.AlignHCenter
-                opacity: 0.3
-            }
+            ColumnLayout {
+                id: emptyCol
+                width: parent.width
+                spacing: Kirigami.Units.gridUnit * 0.5
 
-            QQC2.Label {
-                text: root.hasError ? i18n("Unable to load data") : i18n("No usage data yet")
-                font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.75)
-                font.weight: Font.DemiBold
-                opacity: 0.6
-                Layout.alignment: Qt.AlignHCenter
-            }
+                Kirigami.Icon {
+                    source: root.hasError ? "dialog-error" : "office-chart-bar"
+                    Layout.preferredWidth: Kirigami.Units.gridUnit * 2.0
+                    Layout.preferredHeight: Kirigami.Units.gridUnit * 2.0
+                    Layout.alignment: Qt.AlignHCenter
+                    opacity: 0.3
+                }
 
-            QQC2.Label {
-                text: root.hasError
-                    ? i18n("Check that ccusage is installed and the data timer is running.")
-                    : i18n("Waiting for first ccusage data collection...")
-                font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.55)
-                opacity: 0.4
-                wrapMode: Text.Wrap
-                horizontalAlignment: Text.AlignHCenter
-                Layout.maximumWidth: Kirigami.Units.gridUnit * 16
-                Layout.alignment: Qt.AlignHCenter
+                QQC2.Label {
+                    text: root.hasError ? i18n("Unable to load data") : i18n("No usage data yet")
+                    font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.75)
+                    font.weight: Font.DemiBold
+                    opacity: 0.6
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                // --- Setup instructions ---
+                ColumnLayout {
+                    spacing: Kirigami.Units.gridUnit * 0.4
+                    Layout.topMargin: Kirigami.Units.gridUnit * 0.8
+                    Layout.leftMargin: Kirigami.Units.gridUnit * 0.5
+                    Layout.rightMargin: Kirigami.Units.gridUnit * 0.5
+
+                    QQC2.Label {
+                        text: i18n("Setup requires two steps:")
+                        font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.55)
+                        font.weight: Font.DemiBold
+                        opacity: 0.55
+                    }
+
+                    QQC2.Label {
+                        text: i18n("1. Install ccusage: <tt>bun add -g ccusage</tt>")
+                        font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.5)
+                        opacity: 0.45
+                        wrapMode: Text.Wrap
+                        textFormat: Text.RichText
+                        Layout.fillWidth: true
+                    }
+
+                    QQC2.Label {
+                        text: i18n("2. Run setup: <tt>bash extras/setup.sh</tt>")
+                        font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.5)
+                        opacity: 0.45
+                        wrapMode: Text.Wrap
+                        textFormat: Text.RichText
+                        Layout.fillWidth: true
+                    }
+
+                    QQC2.Label {
+                        text: i18n("Or see the README for manual setup instructions.")
+                        font.pixelSize: Math.round(Kirigami.Units.gridUnit * 0.45)
+                        opacity: 0.35
+                        wrapMode: Text.Wrap
+                        Layout.fillWidth: true
+                        Layout.topMargin: Kirigami.Units.gridUnit * 0.3
+                    }
+                }
             }
         }
 
