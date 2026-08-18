@@ -1,19 +1,22 @@
-#!/usr/bin/env fish
-# ccusage-wrapper.fish — Generate JSON for Plasma Token Usage widget
+#!/usr/bin/env bash
+# ccusage-wrapper — Generate JSON for Plasma Token Usage widget
 # Writes to ~/.cache/ccusage/tokenusage.json
 
-set -l cache_dir "$HOME/.cache/ccusage"
-set -l output_file "$cache_dir/tokenusage.json"
+set -euo pipefail
+
+CACHE_DIR="$HOME/.cache/ccusage"
+OUTPUT_FILE="$CACHE_DIR/tokenusage.json"
 
 # Ensure cache dir exists
-mkdir -p "$cache_dir"
+mkdir -p "$CACHE_DIR"
 
 # Run ccusage and write JSON
-if ccusage daily --json --no-color 2>/dev/null > "$output_file.tmp"
-    mv "$output_file.tmp" "$output_file"
+if ccusage daily --json --no-color 2>/dev/null > "$OUTPUT_FILE.tmp"; then
+    mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
     echo "ok"
 else
     # Write error JSON if ccusage fails
-    echo '{"error":"ccusage failed","daily":[],"totals":{}}' > "$output_file"
+    echo '{"error":"ccusage failed","daily":[],"totals":{}}' > "$OUTPUT_FILE"
+    rm -f "$OUTPUT_FILE.tmp"
     echo "error"
-end
+fi
