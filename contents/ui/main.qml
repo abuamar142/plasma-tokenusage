@@ -1,4 +1,5 @@
 import QtQuick
+import QtCore as QtCore
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
@@ -20,11 +21,11 @@ PlasmoidItem {
     property string errorMessage: ""
     property string todayDate: new Date().toISOString().slice(0, 10)
 
-    // --- Home directory ---
-    // In Qt 6 QML sandbox: Qt.getenv removed, Qt.resolvedUrl follows symlinks,
-    // StandardPaths unavailable. We hardcode for this personal widget.
-    // Change this if deploying to a different user/system.
-    readonly property string homeDir: "/home/abuamar"
+    // --- Home directory (portable, works in Plasma 6 QML sandbox) ---
+    readonly property url homeUrl: QtCore.StandardPaths.writableLocation(
+        QtCore.StandardPaths.HomeLocation
+    )
+    readonly property string homePath: homeUrl.toString().substring(7) // strip "file://" prefix
 
     // --- Config ---
     readonly property int refreshInterval: Plasmoid.configuration.refreshInterval || 30
@@ -32,11 +33,11 @@ PlasmoidItem {
         var configured = Plasmoid.configuration.dataFilePath;
         if (configured && configured.length > 0) {
             if (configured.charAt(0) === "~") {
-                return homeDir + configured.substring(1);
+                return homePath + configured.substring(1);
             }
             return configured;
         }
-        return homeDir + "/.cache/ccusage/tokenusage.json";
+        return homePath + "/.cache/ccusage/tokenusage.json";
     }
     readonly property bool showCost: Plasmoid.configuration.showCost
     readonly property bool showBreakdown: Plasmoid.configuration.showBreakdown

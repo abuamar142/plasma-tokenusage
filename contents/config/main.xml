@@ -10,7 +10,7 @@
             <min>10</min>
             <max>300</max>
         </entry>
-        <entry name="dataFilePath" type="String">
+        <entry name="dataFilePath" type="Path">
             <default></default>
         </entry>
         <entry name="showCost" type="Bool">
