@@ -20,31 +20,26 @@ PlasmoidItem {
     property string errorMessage: ""
     property string todayDate: new Date().toISOString().slice(0, 10)
 
+    // --- Home directory ---
+    // In Qt 6 QML sandbox: Qt.getenv removed, Qt.resolvedUrl follows symlinks,
+    // StandardPaths unavailable. We hardcode for this personal widget.
+    // Change this if deploying to a different user/system.
+    readonly property string homeDir: "/home/abuamar"
+
     // --- Config ---
     readonly property int refreshInterval: Plasmoid.configuration.refreshInterval || 30
     readonly property string dataFilePath: {
         var configured = Plasmoid.configuration.dataFilePath;
         if (configured && configured.length > 0) {
-            // Expand ~ if present
             if (configured.charAt(0) === "~") {
                 return homeDir + configured.substring(1);
             }
             return configured;
         }
-        // Default: derive home dir from widget's own path
-        // Widget always lives under ~/.local/share/plasma/plasmoids/...
         return homeDir + "/.cache/ccusage/tokenusage.json";
     }
     readonly property bool showCost: Plasmoid.configuration.showCost
     readonly property bool showBreakdown: Plasmoid.configuration.showBreakdown
-
-    // --- Derive home directory from widget path (Qt.homePath doesn't exist) ---
-    readonly property string homeDir: {
-        var widgetUrl = Qt.resolvedUrl(".").toString();
-        var path = widgetUrl.replace(/^file:\/\//, "");
-        var parts = path.split("/.local/share/");
-        return parts.length > 0 ? parts[0] : "";
-    }
 
     // --- Number formatting (toLocaleString broken in QML) ---
     function formatTokens(n) {
