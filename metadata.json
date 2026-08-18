@@ -13,9 +13,11 @@
         "License": "GPL-2.0+",
         "Name": "Token Usage Monitor",
         "Version": "1.0",
-        "Website": "https://github.com/abuamar142",
+        "Website": "https://github.com/abuamar142/plasma-tokenusage",
         "EnabledByDefault": true
     },
     "X-Plasma-API-Minimum-Version": "6.0",
-    "KPackageStructure": "Plasma/Applet"
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-NotificationArea": "true",
+    "X-Plasma-NotificationAreaCategory": "SystemServices"
 }

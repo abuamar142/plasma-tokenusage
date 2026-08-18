@@ -51,7 +51,7 @@ PlasmoidItem {
     }
 
     // --- Tooltip ---
-    toolTipMainText: hasError ? "Token Usage — Error" : formatTokens(totalTokens)
+    toolTipMainText: hasError ? i18n("Token Usage — Error") : formatTokens(totalTokens)
     toolTipSubText: {
         if (hasError) return errorMessage;
         var parts = [];
