@@ -13,6 +13,16 @@ KDE Plasma 6 system tray widget that displays AI coding agent token usage, power
 - Supports Claude Code, OpenCode, Codex, and 16+ AI agents via ccusage
 - Auto-refresh every 5 minutes via systemd timer
 
+## Screenshots
+
+| Tray Icon | Popup Detail |
+|-----------|-------------|
+| ![Hover](screenshots/hover.png) | ![Detail](screenshots/detail.png) |
+
+| Desktop |
+|---------|
+| ![Desktop](screenshots/desktop.png) |
+
 ## Requirements
 
 - KDE Plasma 6
